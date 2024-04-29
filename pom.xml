@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.vernalis.hellojchem</groupId>
+	<artifactId>hellojchem</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>hellojchem</name>
+	<url>https://github.com/mjw99/hellojchem</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<jchem.version>22.20.0</jchem.version>
+		<junit.version>5.10.2</junit.version>
+		<embedded-db.version>2.1.1</embedded-db.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>ChemAxon Public Repository</id>
+			<url>https://hub.chemaxon.com/artifactory/libs-release</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.version}</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.zapodot</groupId>
+			<artifactId>embedded-db-junit-jupiter</artifactId>
+			<version>${embedded-db.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- private repo -->
+		<dependency>
+			<groupId>com.chemaxon</groupId>
+			<artifactId>jchem-main</artifactId>
+			<version>${jchem.version}</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<pluginManagement><!-- lock down plugins versions to avoid using Maven
+			defaults (may be moved to parent pom) -->
+			<plugins>
+				<!-- clean lifecycle, see
+				https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.3.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.2.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.13.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.2.5</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+				<!-- site lifecycle, see
+				https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
+
