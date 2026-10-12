@@ -101,7 +101,7 @@ class AppTest {
 	}
 
 	@Test
-	void basicSearch() throws SQLException, IOException, JChemSearchException, TableTransferException {
+	void basicSearch() throws SQLException, IOException, JChemSearchException {
 
 		JChemSearch searcher = new JChemSearch();
 		searcher.setStructureTable("structure");
@@ -115,7 +115,7 @@ class AppTest {
 	}
 
 	@Test
-	void basicExport() throws SQLException, IOException, JChemSearchException, TableTransferException {
+	void basicExport() throws IOException, TableTransferException {
 
 		String fileName = "example.smi";
 		int format = TableTransferConstants.SMILES;
