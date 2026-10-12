@@ -20,16 +20,16 @@ import org.zapodot.junit.db.annotations.EmbeddedDatabase;
 import org.zapodot.junit.db.common.Engine;
 
 import chemaxon.jchem.db.DatabaseProperties;
-import chemaxon.jchem.db.DatabaseSearchException;
-import chemaxon.jchem.db.Importer;
-import chemaxon.jchem.db.Exporter;
+import chemaxon.jchem.db.exceptions.JChemSearchException;
+import chemaxon.jchem.db.TableImporter;
+import chemaxon.jchem.db.TableExporter;
 import chemaxon.jchem.db.JChemSearch;
-import chemaxon.jchem.db.StructureTableOptions;
-import chemaxon.jchem.db.TableTypeConstants;
-import chemaxon.jchem.db.Transfer;
-import chemaxon.jchem.db.TransferException;
-import chemaxon.jchem.db.UpdateHandler;
-import chemaxon.util.ConnectionHandler;
+import chemaxon.jchem.db.TableOptions;
+import chemaxon.jchem.db.constants.TableTypeConstants;
+import chemaxon.jchem.db.constants.TableTransferConstants;
+import chemaxon.jchem.db.exceptions.TableTransferException;
+import chemaxon.jchem.db.TableUpdateHandler;
+import chemaxon.jchem.util.ConnectionHandler;
 
 @EmbeddedDatabaseTest(engine = Engine.HSQLDB, initialSqls = {
 		// "CREATE TABLE PUBLIC.TEST_STRUCTURE_JCHEM(cd_id INTEGER PRIMARY KEY,
@@ -55,7 +55,7 @@ class AppTest {
 	}
 
 	@BeforeEach
-	void populateWithImport() throws SQLException, TransferException {
+	void populateWithImport() throws SQLException, TableTransferException {
 
 		ConnectionHandler connHandler = getConnectionHandler();
 
@@ -63,12 +63,12 @@ class AppTest {
 		DatabaseProperties.createPropertyTable(connHandler);
 
 		// Create the structure table
-		StructureTableOptions tableOptions = new StructureTableOptions("structure",
+		TableOptions tableOptions = new TableOptions("structure",
 				TableTypeConstants.TABLE_TYPE_MOLECULES);
-		UpdateHandler.createStructureTable(connHandler, tableOptions);
+		TableUpdateHandler.createStructureTable(connHandler, tableOptions);
 
 		// Create some entries from an SDF file
-		Importer importer = new Importer();
+		TableImporter importer = new TableImporter();
 
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("example.sdf").getFile());
@@ -101,7 +101,7 @@ class AppTest {
 	}
 
 	@Test
-	void basicSearch() throws SQLException, IOException, DatabaseSearchException, TransferException {
+	void basicSearch() throws SQLException, IOException, JChemSearchException, TableTransferException {
 
 		JChemSearch searcher = new JChemSearch();
 		searcher.setStructureTable("structure");
@@ -115,12 +115,12 @@ class AppTest {
 	}
 
 	@Test
-	void basicExport() throws SQLException, IOException, DatabaseSearchException, TransferException {
+	void basicExport() throws SQLException, IOException, JChemSearchException, TableTransferException {
 
 		String fileName = "example.smi";
-		int format = Transfer.SMILES;
+		int format = TableTransferConstants.SMILES;
 		OutputStream os = new FileOutputStream(new File(fileName));
-		Exporter ex = new Exporter();
+		TableExporter ex = new TableExporter();
 		ex.setConnectionHandler(getConnectionHandler());
 		ex.setTableName("structure");
 		// ex.setFieldList(fieldString);
