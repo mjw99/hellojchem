@@ -21,7 +21,7 @@
 	<repositories>
 		<repository>
 			<id>ChemAxon Public Repository</id>
-			<url>https://hub.chemaxon.com/artifactory/libs-release</url>
+			<url>https://chemaxon.jfrog.io/artifactory/libs-release</url>
 		</repository>
 	</repositories>
 
